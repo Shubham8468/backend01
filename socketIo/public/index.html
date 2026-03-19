@@ -6,7 +6,41 @@
     <title>Chat app</title>
 </head>
 <body>
-    <h1>hello</h1>
+    <h1>Chat App</h1>
+    <input id="msgInput" type="text" placeholder="Enter a message">
+    <button id="sendMsg">Send msg</button>
+    <div id="msgBox">
+
+    </div>
+
+
+
+
+
+
+
+    <script src="/socket.io/socket.io.js">// this is the way to connnect frontend to backend </script>
+    <script>
+        const socket=io();
+        const msgInput=document.getElementById('msgInput');
+        const sendMsg=document.getElementById('sendMsg');
+        const mesBox=document.getElementById('msgBox');
+        sendMsg.addEventListener('click',()=>{
+            socket.emit('msgFromFronted',msgInput.value);
+        })
+
+        socket.on("mesFromBackend",(msg)=>{
+            const p =document.createElement('p');
+            p.textContent=msg;
+            mesBox.appendChild(p)
+        })
+
+
+
+        socket.emit("FrondendMess","hello i am from Frondend")// isme frontend se data bhej rhe hai 
+        //Now i recived msg from Backend in Frontend
+       
+    </script>
     
 </body>
 </html>
